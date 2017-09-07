@@ -11,8 +11,8 @@ import { SettingsPage } from '../settings/settings';
 export class TabsPage {
 
   inboxTabRoot = InboxPage;
-  peopleTabRoot = ProfilePage;
-  profileTabRoot = PeoplePage;
+  peopleTabRoot = PeoplePage;
+  profileTabRoot = ProfilePage;
   settingsTabRoot = SettingsPage;
 
   constructor() {
