@@ -8,6 +8,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PeoplePage } from '../pages/people/people';
 import { InboxPage } from '../pages/inbox/inbox';
 import { SettingsPage } from '../pages/settings/settings';
+import { StartPage } from "../pages/start/start";
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,7 +23,8 @@ import { ConversationsProvider } from '../providers/conversations/conversations'
     PeoplePage,
     InboxPage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    StartPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { ConversationsProvider } from '../providers/conversations/conversations'
     PeoplePage,
     InboxPage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    StartPage
   ],
   providers: [
     StatusBar,

@@ -8,12 +8,18 @@
 
 <ion-content padding-top>
   <ion-list [virtualScroll]="people">
-    <ion-item *virtualItem="let person">
-      <ion-avatar item-left>
-        <ion-img [src]="person.picture.thumbnail"></ion-img>
-      </ion-avatar>
-      {{person.name.first}}
-      <ion-note item-right>{{person.phone}}</ion-note>
-    </ion-item>
+    <ion-card *virtualItem="let person">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img [src]="person.picture.large" />
+        </ion-thumbnail>
+        <h2 text-capitalize>{{person.name.first}}</h2>
+        <p>late 20th</p>
+      </ion-item>
+      <ion-card-content>
+        <ion-card-title text-capitalize>{{person.name.first}}</ion-card-title>
+        <ion-note item-right>{{person.phone}}</ion-note>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 </ion-content>
