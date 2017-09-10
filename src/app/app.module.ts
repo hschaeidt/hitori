@@ -1,7 +1,13 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import {
+  IonicApp,
+  IonicModule,
+  IonicErrorHandler,
+  IonicPageModule
+} from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
 import { ProfilePage } from '../pages/profile/profile';
@@ -15,6 +21,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PeopleProvider } from '../providers/people/people';
 import { ConversationsProvider } from '../providers/conversations/conversations';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -29,7 +36,8 @@ import { ConversationsProvider } from '../providers/conversations/conversations'
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +54,8 @@ import { ConversationsProvider } from '../providers/conversations/conversations'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PeopleProvider,
-    ConversationsProvider
+    ConversationsProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}
