@@ -3,14 +3,14 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { StartPage } from '../pages/start/start';
+import { PresentationPage } from '../pages/presentation/pesentation';
 import { Auth0Provider } from '../providers/auth0/auth0';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = StartPage;
+  rootPage:any = PresentationPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, authProvider: Auth0Provider) {
     platform.ready().then(() => {
