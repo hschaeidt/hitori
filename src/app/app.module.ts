@@ -1,12 +1,9 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import {
-  IonicApp,
-  IonicModule,
-  IonicErrorHandler,
-  IonicPageModule
-} from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { ApolloModule } from 'apollo-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
@@ -22,6 +19,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PeopleProvider } from '../providers/people/people';
 import { ConversationsProvider } from '../providers/conversations/conversations';
 import { AuthProvider } from '../providers/auth/auth';
+import { ApolloProvider } from '../providers/apollo/apollo';
+import { UserProvider } from '../providers/user/user';
+
+const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' }));
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AuthProvider } from '../providers/auth/auth';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ApolloModule.forRoot(apolloProvider.getClient.bind(apolloProvider))
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +57,9 @@ import { AuthProvider } from '../providers/auth/auth';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PeopleProvider,
     ConversationsProvider,
-    AuthProvider
+    AuthProvider,
+    ApolloProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

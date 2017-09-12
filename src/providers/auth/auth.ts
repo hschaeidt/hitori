@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { AUTH_CONFIG } from "./auth.config";
-import * as auth0 from 'auth0-js';
 import 'rxjs/add/operator/map';
+import { Auth0UserProfile, WebAuth } from "auth0-js";
+
+import { UserProvider } from "../user/user";
 
 /*
   Generated class for the AuthProvider provider.
@@ -14,17 +16,16 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthProvider {
 
-  auth0 = new auth0.WebAuth({
+  auth0 = new WebAuth({
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
     redirectUri: AUTH_CONFIG.callbackURL,
-    scope: 'openid'
+    scope: 'openid email profile'
   });
 
-  constructor(public http: Http, public storage: Storage) {
-    console.log('Hello AuthProvider Provider');
+  constructor(public http: Http, public storage: Storage, public userProvider: UserProvider) {
   }
 
 
@@ -32,29 +33,53 @@ export class AuthProvider {
     this.auth0.authorize({});
   }
 
-  public handleAuthentication(): Promise<{}> {
+  public async handleAuthentication(): Promise<{}> {
     return new Promise((resolve, reject) => {
-      this.auth0.parseHash((err, authResult) => {
+      this.auth0.parseHash(async (err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
           window.location.hash = '';
-          this.setSession(authResult);
+          await this.setSession(authResult);
+          await this.syncToUser(authResult.idToken);
           resolve();
         } else if (err) {
-          console.log(err);
-          alert(`Error: ${err.error}. Check the console for further details.`);
+          reject(err);
+        } else {
+          reject();
         }
-
-        reject();
       });
     });
   }
 
-  private setSession(authResult): void {
+  async syncToUser(idToken: string) {
+    const userProfile = await this.getUserProfile();
+
+    this.userProvider.createUser(userProfile.name, userProfile.nickname, idToken);
+  }
+
+  public async getAccessToken(): Promise<string> {
+    return this.storage.get('access_token');
+  }
+
+  public getUserProfile(): Promise<Auth0UserProfile> {
+    return new Promise((resolve, reject) => {
+      this.storage.get('access_token').then(accessToken => {
+        this.auth0.client.userInfo(accessToken, (err, userProfile) => {
+          if (err) {
+            reject(err);
+          }
+
+          resolve(userProfile);
+        });
+      }).catch(reason => reject(reason));
+    });
+  }
+
+  private async setSession(authResult): Promise<void> {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    this.storage.set('access_token', authResult.accessToken);
-    this.storage.set('id_token', authResult.idToken);
-    this.storage.set('expires_at', expiresAt);
+    await this.storage.set('access_token', authResult.accessToken);
+    await this.storage.set('id_token', authResult.idToken);
+    await this.storage.set('expires_at', expiresAt);
   }
 
   public logout(): void {
