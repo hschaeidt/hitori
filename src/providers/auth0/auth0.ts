@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
-import { AUTH_CONFIG } from "./auth.config";
+import { AUTH_CONFIG } from "./auth0.config";
 import 'rxjs/add/operator/map';
 import { Auth0UserProfile, WebAuth } from "auth0-js";
 
 import { UserProvider } from "../user/user";
 
 /*
-  Generated class for the AuthProvider provider.
+  Generated class for the Auth0Provider provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular DI.
 */
 @Injectable()
-export class AuthProvider {
+export class Auth0Provider {
 
   auth0 = new WebAuth({
     clientID: AUTH_CONFIG.clientID,

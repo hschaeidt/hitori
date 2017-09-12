@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { StartPage } from '../pages/start/start';
-import { AuthProvider } from '../providers/auth/auth';
+import { Auth0Provider } from '../providers/auth0/auth0';
 
 @Component({
   templateUrl: 'app.html'
@@ -12,7 +12,7 @@ import { AuthProvider } from '../providers/auth/auth';
 export class MyApp {
   rootPage:any = StartPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, authProvider: AuthProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, authProvider: Auth0Provider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

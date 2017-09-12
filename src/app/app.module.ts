@@ -18,7 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PeopleProvider } from '../providers/people/people';
 import { ConversationsProvider } from '../providers/conversations/conversations';
-import { AuthProvider } from '../providers/auth/auth';
+import { Auth0Provider } from '../providers/auth0/auth0';
 import { ApolloProvider } from '../providers/apollo/apollo';
 import { UserProvider } from '../providers/user/user';
 
@@ -57,7 +57,7 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PeopleProvider,
     ConversationsProvider,
-    AuthProvider,
+    Auth0Provider,
     ApolloProvider,
     UserProvider
   ]
