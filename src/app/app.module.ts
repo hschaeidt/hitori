@@ -11,7 +11,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PeoplePage } from '../pages/people/people';
 import { InboxPage } from '../pages/inbox/inbox';
 import { SettingsPage } from '../pages/settings/settings';
-import { PresentationPage } from "../pages/presentation/pesentation";
+import { PresentationPage } from "../pages/presentation/presentation";
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -21,7 +21,6 @@ import { ConversationsProvider } from '../providers/conversations/conversations'
 import { Auth0Provider } from '../providers/auth0/auth0';
 import { ApolloProvider } from '../providers/apollo/apollo';
 import { UserProvider } from '../providers/user/user';
-import { GuideProvider } from '../providers/guide/guide';
 
 const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' }));
 

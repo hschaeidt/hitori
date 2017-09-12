@@ -3,7 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { PresentationPage } from '../pages/presentation/pesentation';
+import { PresentationPage } from '../pages/presentation/presentation';
 import { Auth0Provider } from '../providers/auth0/auth0';
 
 @Component({
