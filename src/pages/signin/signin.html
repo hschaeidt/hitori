@@ -32,7 +32,13 @@
     <ion-input [(ngModel)]="password" type="password"></ion-input>
   </ion-item>
 
-  <button ion-button large clear icon-end color="primary" (click)="handleLogin()">
-    Login
-  </button>
+  <div padding>
+    <button ion-button color="primary" block (click)="handleLogin()">Sign In</button>
+  </div>
+
+  <div padding align-items-center style="text-align: center;">
+    <a href="#" (click)="handleSignupClick()">
+      Or Sign Up here!
+    </a>
+  </div>
 </ion-content>

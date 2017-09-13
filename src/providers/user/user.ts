@@ -38,33 +38,33 @@ export class UserProvider {
     return result.data.user;
   }
 
-  public async createUser(name: string, email: string, password: string): Promise<boolean> {
+  public async createUser(email: string, password: string): Promise<{}> {
     if (await this.getCurrentUser() !== null) {
       return false;
     }
 
     const createUser = gql`
-      mutation ($name: String!, $email: String!, $password: String!){
-        createUser(authProvider: {email: {email: $email, password: $password}}, name: $name) {
+      mutation ($email: String!, $password: String!){
+        createUser(authProvider: {email: {email: $email, password: $password}}) {
           id
         }
       }
     `;
 
-    await this.apollo.mutate({
-      mutation: createUser,
-      variables: {
-        password,
-        name,
-        email
-      }
-    }).subscribe(({ data }) => {
-      console.log('got data', data);
-    }, (error) => {
-      console.log('there was an error sending the query', error);
+    return new Promise((resolve, reject) => {
+      this.apollo.mutate({
+        mutation: createUser,
+        variables: {
+          password,
+          name,
+          email
+        }
+      }).subscribe(({ data }) => {
+        resolve(data);
+      }, (errors) => {
+        reject(errors);
+      });
     });
-
-    return true;
   }
 
   public signinUser(email: string, password: string): Promise<{}> {

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, LoadingController, NavController, NavParams, ViewController } from 'ionic-angular';
+import {
+  AlertController, IonicPage, LoadingController, ModalController, NavController, NavParams,
+  ViewController
+} from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { TabsPage } from "../tabs/tabs";
+import { SignupPage } from "../signup/signup";
 
 /**
  * Generated class for the SigninPage page.
@@ -21,7 +25,8 @@ export class SigninPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl: AlertController, public userProvider: UserProvider,
-              public viewCtrl: ViewController, public loadingCtrl: LoadingController) {
+              public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+              public modalCtrl: ModalController) {
   }
 
   handleLogin() {
@@ -61,7 +66,13 @@ export class SigninPage {
     }
   }
 
+  handleSignupClick() {
+    this.dismiss().then(
+      () => this.modalCtrl.create(SignupPage).present()
+    );
+  }
+
   dismiss() {
-    this.viewCtrl.dismiss();
+    return this.viewCtrl.dismiss();
   }
 }

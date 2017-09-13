@@ -24,20 +24,26 @@
 <ion-content padding>
   <ion-item>
     <ion-label color="primary" stacked>Email Address</ion-label>
-    <ion-input type="email" placeholder="hito@hitori.ninja"></ion-input>
+    <ion-input [(ngModel)]="email" type="email" placeholder="hito@hitori.ninja"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary" stacked>Password</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input [(ngModel)]="password" type="password"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary" stacked>Repeat Password</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input [(ngModel)]="passwordRepeat" type="password"></ion-input>
   </ion-item>
 
-  <button ion-button large clear icon-end color="primary">
-    Sign Up
-  </button>
+  <div padding>
+    <button ion-button color="primary" block (click)="handleSignup()">Sign Up</button>
+  </div>
+
+  <div padding align-items-center style="text-align: center;">
+    <a href="#" (click)="handleSigninClick()">
+      Or Sign In here!
+    </a>
+  </div>
 </ion-content>
