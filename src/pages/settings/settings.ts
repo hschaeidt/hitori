@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserProvider } from "../../providers/user/user";
 
 /**
  * Generated class for the SettingsPage page.
@@ -15,11 +16,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public userProvider: UserProvider, public alertCtrl: AlertController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
-  }
+  logout() {
+    this.userProvider.logoutUser().then(() => location.reload()).catch(
+      (errors) => {
+        const alert = this.alertCtrl.create({
+          title: 'Login failed',
+          subTitle: errors.message,
+          buttons: ['OK']
+        });
 
+        alert.present();
+      }
+    );
+  }
 }

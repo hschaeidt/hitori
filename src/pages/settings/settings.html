@@ -7,12 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>settings</ion-title>
+    <ion-title>Settings</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Global
+    </ion-list-header>
+    <a ion-item (click)="logout()">
+      Logout
+    </a>
+  </ion-list>
 
 </ion-content>

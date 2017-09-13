@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import { Storage } from '@ionic/storage';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
 
-interface User {
-  name: string;
-  email: string;
+export interface User {
+  id: string;
 }
 
 interface UserQueryResponse {
@@ -21,7 +21,7 @@ interface UserQueryResponse {
 @Injectable()
 export class UserProvider {
 
-  constructor(public apollo: Apollo) {
+  constructor(public apollo: Apollo, public storage: Storage) {
   }
 
   public async getCurrentUser(): Promise<User | null> {
@@ -29,8 +29,7 @@ export class UserProvider {
       query: gql`
         query {
           user {
-            name
-            email
+            id
           }
         }
       `
@@ -39,14 +38,14 @@ export class UserProvider {
     return result.data.user;
   }
 
-  public async createUser(email: string, name: string, auth0IdToken: string): Promise<boolean> {
+  public async createUser(name: string, email: string, password: string): Promise<boolean> {
     if (await this.getCurrentUser() !== null) {
       return false;
     }
 
     const createUser = gql`
-      mutation ($auth0IdToken: String!, $name: String!, $email: String!){
-        createUser(authProvider: {auth0: {idToken: $auth0IdToken}}, name: $name, email: $email) {
+      mutation ($name: String!, $email: String!, $password: String!){
+        createUser(authProvider: {email: {email: $email, password: $password}}, name: $name) {
           id
         }
       }
@@ -55,7 +54,7 @@ export class UserProvider {
     await this.apollo.mutate({
       mutation: createUser,
       variables: {
-        auth0IdToken,
+        password,
         name,
         email
       }
@@ -66,5 +65,49 @@ export class UserProvider {
     });
 
     return true;
+  }
+
+  public signinUser(email: string, password: string): Promise<{}> {
+    const signinUser = gql`
+      mutation ($email: String!, $password: String!){
+        signinUser(email: {email: $email, password: $password}) {
+          token
+        }
+      }
+    `;
+
+    return new Promise((resolve, reject) => {
+      this.apollo.mutate<SigninUserExecutionResult>({
+        mutation: signinUser,
+        variables: {
+          email,
+          password
+        }
+      }).subscribe(({ data }) => {
+        this.storage.set('id_token', data.signinUser.token).then(() => {
+          resolve();
+        });
+      }, (errors) => {
+        reject(errors);
+      });
+    });
+  }
+
+  public logoutUser(): Promise<{}> {
+    return new Promise((resolve, reject) => {
+      this.storage.remove('id_token').then(() => {
+        this.apollo.getClient().resetStore().then(() => {
+          resolve();
+        }).catch((errors) => reject(errors));
+      }).catch((errors) => {
+        reject(errors);
+      })
+    });
+  }
+}
+
+export interface SigninUserExecutionResult {
+  signinUser: {
+    token: string
   }
 }

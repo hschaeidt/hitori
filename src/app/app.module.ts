@@ -11,6 +11,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PeoplePage } from '../pages/people/people';
 import { InboxPage } from '../pages/inbox/inbox';
 import { SettingsPage } from '../pages/settings/settings';
+import { SigninPage } from "../pages/signin/signin";
+import { SignupPage } from "../pages/signup/signup";
 import { PresentationPage } from "../pages/presentation/presentation";
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -32,6 +34,8 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     InboxPage,
     TabsPage,
     SettingsPage,
+    SigninPage,
+    SignupPage,
     PresentationPage
   ],
   imports: [
@@ -49,6 +53,8 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     InboxPage,
     TabsPage,
     SettingsPage,
+    SigninPage,
+    SignupPage,
     PresentationPage
   ],
   providers: [

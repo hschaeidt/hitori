@@ -7,7 +7,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Start</ion-title>
+    <ion-title>Hitori</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="handleLogin()">
+        Login
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -15,14 +21,22 @@
 
 <ion-content>
   <ion-slides pager>
-    <ion-slide style="background-color: green">
+    <ion-slide>
       <h2>Slide 1</h2>
     </ion-slide>
-    <ion-slide style="background-color: blue">
+    <ion-slide>
       <h2>Slide 2</h2>
     </ion-slide>
-    <ion-slide style="background-color: red">
+    <ion-slide>
       <h2>Slide 3</h2>
+      <button ion-button large clear icon-end color="primary" (click)="handleLogin()">
+        Login
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+      <button ion-button large clear icon-end color="primary" (click)="handleSignup()">
+        Sign Up
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
     </ion-slide>
   </ion-slides>
 </ion-content>

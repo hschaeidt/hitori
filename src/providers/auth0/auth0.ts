@@ -53,7 +53,7 @@ export class Auth0Provider {
   async syncToUser(idToken: string) {
     const userProfile = await this.getUserProfile();
 
-    this.userProvider.createUser(userProfile.name, userProfile.nickname, idToken);
+    this.userProvider.createUser(userProfile.nickname, userProfile.name, idToken);
   }
 
   public async getAccessToken(): Promise<string> {
