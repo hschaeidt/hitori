@@ -47,8 +47,7 @@ export class SigninPage {
 
       this.userProvider.signinUser(this.email, this.password).then(
         () => {
-          loader.dismiss();
-          this.navCtrl.setRoot(TabsPage);
+          location.reload();
         }
       ).catch(
         (errors) => {

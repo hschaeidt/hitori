@@ -3,6 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { Storage } from '@ionic/storage';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import { ApolloProvider } from "../apollo/apollo";
 
 export interface User {
   id: string;
@@ -21,7 +23,7 @@ interface UserQueryResponse {
 @Injectable()
 export class UserProvider {
 
-  constructor(public apollo: Apollo, public storage: Storage) {
+  constructor(public apollo: Apollo, public storage: Storage, public apolloProvider: ApolloProvider) {
   }
 
   public async getCurrentUser(): Promise<User | null> {
@@ -38,7 +40,7 @@ export class UserProvider {
     return result.data.user;
   }
 
-  public async createUser(email: string, password: string): Promise<{}> {
+  public async createUser(email: string, password: string) {
     if (await this.getCurrentUser() !== null) {
       return false;
     }
@@ -51,20 +53,14 @@ export class UserProvider {
       }
     `;
 
-    return new Promise((resolve, reject) => {
-      this.apollo.mutate({
-        mutation: createUser,
-        variables: {
-          password,
-          name,
-          email
-        }
-      }).subscribe(({ data }) => {
-        resolve(data);
-      }, (errors) => {
-        reject(errors);
-      });
-    });
+    return this.apollo.mutate({
+      mutation: createUser,
+      variables: {
+        password,
+        name,
+        email
+      }
+    }).toPromise();
   }
 
   public signinUser(email: string, password: string): Promise<{}> {

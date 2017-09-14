@@ -23,6 +23,8 @@ import { ConversationsProvider } from '../providers/conversations/conversations'
 import { Auth0Provider } from '../providers/auth0/auth0';
 import { ApolloProvider } from '../providers/apollo/apollo';
 import { UserProvider } from '../providers/user/user';
+import { ProfileProvider } from '../providers/profile/profile';
+import { FormsModule } from "@angular/forms";
 
 const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' }));
 
@@ -40,6 +42,7 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
@@ -65,7 +68,8 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     ConversationsProvider,
     Auth0Provider,
     ApolloProvider,
-    UserProvider
+    UserProvider,
+    ProfileProvider
   ]
 })
 export class AppModule {}

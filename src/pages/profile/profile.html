@@ -1,11 +1,20 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      My Profile
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <form #profileForm="ngForm">
+    <ion-item>
+      <ion-label color="primary" stacked>Public Name</ion-label>
+      <ion-input [(ngModel)]="profile.publicName" name="publicName" type="text" placeholder="Hendrik"></ion-input>
+    </ion-item>
 
+    <div padding>
+      <button ion-button color="primary" block (click)="handleSaveChanges()">Save Changes</button>
+    </div>
+  </form>
 </ion-content>
