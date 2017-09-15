@@ -4,15 +4,11 @@ import { Storage } from '@ionic/storage';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { ApolloProvider } from "../apollo/apollo";
-
-export interface User {
-  id: string;
-}
-
-interface UserQueryResponse {
-  user: User;
-}
+import {
+  CreateUserMutation, CreateUserMutationVariables, GetCurrentUserQuery, SigninUserMutation,
+  SigninUserMutationVariables
+} from "../../app/schema";
+import "rxjs/add/operator/mergeMap";
 
 /*
   Generated class for the UserProvider provider.
@@ -23,62 +19,67 @@ interface UserQueryResponse {
 @Injectable()
 export class UserProvider {
 
-  constructor(public apollo: Apollo, public storage: Storage, public apolloProvider: ApolloProvider) {
+  constructor(public apollo: Apollo, public storage: Storage) {
   }
 
-  public async getCurrentUser(): Promise<User | null> {
-    const result = await this.apollo.watchQuery<UserQueryResponse>({
+  public getCurrentUser() {
+    return this.apollo.watchQuery<GetCurrentUserQuery>({
       query: gql`
-        query {
+        query GetCurrentUser {
           user {
             id
           }
         }
-      `
-    }).result();
-
-    return result.data.user;
+      `,
+    }).map(
+      ({data}) => data.user
+    );
   }
 
-  public async createUser(email: string, password: string) {
+  public async createUser(email: string, password: string): Promise<CreateUserMutation>  {
     if (await this.getCurrentUser() !== null) {
-      return false;
+      return new Promise<CreateUserMutation>((resolve, reject) => {
+        reject();
+      });
     }
 
     const createUser = gql`
-      mutation ($email: String!, $password: String!){
+      mutation CreateUser($email: String!, $password: String!){
         createUser(authProvider: {email: {email: $email, password: $password}}) {
           id
         }
       }
     `;
 
-    return this.apollo.mutate({
+    const variables: CreateUserMutationVariables = {
+      password,
+      email
+    };
+
+    return this.apollo.mutate<CreateUserMutation>({
       mutation: createUser,
-      variables: {
-        password,
-        name,
-        email
-      }
-    }).toPromise();
+      variables
+    }).toPromise<CreateUserMutation>();
   }
 
   public signinUser(email: string, password: string): Promise<{}> {
     const signinUser = gql`
-      mutation ($email: String!, $password: String!){
+      mutation SigninUser($email: String!, $password: String!){
         signinUser(email: {email: $email, password: $password}) {
           token
         }
       }
     `;
 
+    const variables: SigninUserMutationVariables = {
+      email,
+      password
+    };
+
     return new Promise((resolve, reject) => {
-      this.apollo.mutate<SigninUserExecutionResult>({
+      this.apollo.mutate<SigninUserMutation>({
         mutation: signinUser,
-        variables: {
-          email,
-          password
-        }
+        variables
       }).subscribe(({ data }) => {
         this.storage.set('id_token', data.signinUser.token).then(() => {
           resolve();
@@ -99,11 +100,5 @@ export class UserProvider {
         reject(errors);
       })
     });
-  }
-}
-
-export interface SigninUserExecutionResult {
-  signinUser: {
-    token: string
   }
 }

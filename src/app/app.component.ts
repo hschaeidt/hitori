@@ -7,6 +7,7 @@ import { PresentationPage } from '../pages/presentation/presentation';
 import { Auth0Provider } from '../providers/auth0/auth0';
 import { UserProvider } from "../providers/user/user";
 import { TabsPage } from "../pages/tabs/tabs";
+import "rxjs/add/operator/filter";
 
 @Component({
   templateUrl: 'app.html'
@@ -23,11 +24,11 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      userProvider.getCurrentUser().then(user => {
+      userProvider.getCurrentUser().subscribe(user => {
         if (user !== null) {
           this.rootPage = TabsPage;
         }
-      })
+      });
     });
   }
 

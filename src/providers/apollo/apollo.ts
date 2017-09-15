@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import 'rxjs/add/operator/map';
-import { Subject } from "rxjs/Subject";
 
 /*
   Generated class for the ApolloProvider provider.

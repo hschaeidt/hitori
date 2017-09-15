@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import * as _ from 'lodash';
 import { UserProvider } from "../user/user";
+import {
+  CreateProfileForUserMutation, CreateProfileForUserMutationVariables, CreateUserMutationVariables,
+  GetUserWithProfileQuery, UpdateProfileForUserMutation, UpdateProfileForUserMutationVariables
+} from "../../app/schema";
 
 /*
   Generated class for the ProfileProvider provider.
@@ -13,15 +16,13 @@ import { UserProvider } from "../user/user";
 */
 @Injectable()
 export class ProfileProvider {
-  profile: Profile = null;
-
   constructor(public apollo: Apollo, public userProvider: UserProvider) {
   }
 
   public getCurrentUserProfile() {
-    return this.apollo.watchQuery<ProfileQueryResponse>({
+    return this.apollo.watchQuery<GetUserWithProfileQuery>({
       query: gql`
-        query {
+        query GetUserWithProfile {
           user {
             id
             profile {
@@ -37,9 +38,14 @@ export class ProfileProvider {
   public async createCurrentUserProfile(
     publicName: string
   ) {
-    const user = await this.userProvider.getCurrentUser();
+    const user = await this.userProvider.getCurrentUser().toPromise();
 
-    return this.apollo.mutate<CreateProfileQueryResponse>({
+    const variables: CreateProfileForUserMutationVariables = {
+      userId: user.id,
+      publicName
+    };
+
+    return this.apollo.mutate<CreateProfileForUserMutation>({
       mutation: gql`
         mutation CreateProfileForUser($userId: ID, $publicName: String!) {
           createProfile(userId: $userId, publicName: $publicName) {
@@ -47,10 +53,7 @@ export class ProfileProvider {
           }
         }
       `,
-      variables: {
-        userId: user.id,
-        publicName
-      }
+      variables
     });
   }
 
@@ -58,7 +61,12 @@ export class ProfileProvider {
     id: string,
     publicName: string
   ) {
-    return this.apollo.mutate<UpdateProfileQueryResponse>({
+    const variables: UpdateProfileForUserMutationVariables = {
+      id,
+      publicName
+    };
+
+    return this.apollo.mutate<UpdateProfileForUserMutation>({
       mutation: gql`
         mutation UpdateProfileForUser($id: ID!, $publicName: String!) {
           updateProfile(id: $id, publicName: $publicName) {
@@ -67,10 +75,7 @@ export class ProfileProvider {
           }
         }
       `,
-      variables: {
-        id,
-        publicName
-      },
+      variables,
       optimisticResponse: {
         __typename: 'Mutation',
         updateProfile: {
@@ -86,18 +91,4 @@ export class ProfileProvider {
 export interface Profile {
   id?: string;
   publicName?: string;
-}
-
-export interface CreateProfileQueryResponse {
-  createProfile: Profile;
-}
-
-export interface UpdateProfileQueryResponse {
-  updateProfile: Profile;
-}
-
-export interface ProfileQueryResponse {
-  user: {
-    profile: Profile;
-  }
 }
