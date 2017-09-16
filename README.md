@@ -4,10 +4,11 @@
 
 Special configuration in [tsconfig.json](tsconfig.json):
 
+Required by @types/graphql:
 ```json
 {
   "lib": [
-    "esnext.asynciterable" //Required by @types/graphql
+    "esnext.asynciterable"
   ]
 }
 ```
@@ -25,7 +26,7 @@ To update the types:
 # first update the ./schema.json file in the repo based on the GraphQL endpoint
 npm run graphql:updateSchema
 
-# next generate the types located at ./src/app/schema.json
+# next generate the types located at ./src/app/schema.ts
 npm run graphql:generateTypes
 ```
 
@@ -48,7 +49,7 @@ The initialization takes place in the [app.component.ts](src/app/app.component.t
 
 #### Add translations
 
-To add a translation a new file must be created in the [src/assets](src/assets) folder.<br />
+To add a translation a new file must be created in the [src/assets/i18n](src/assets/i18n) folder.<br />
 Then add the language code to the [app.component.ts](src/app/app.component.ts#22) to allow loading of that newly created language.
 
 ================================================================================
