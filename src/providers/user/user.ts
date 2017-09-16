@@ -95,4 +95,8 @@ export class UserProvider {
       })
     });
   }
+
+  public hasToken() {
+    return this.storage.get('id_token');
+  }
 }

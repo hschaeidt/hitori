@@ -32,9 +32,17 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      userProvider.getCurrentUser().subscribe(user => {
-        if (user !== null) {
+      // In the login flow we first consider optimistically the token as valid,
+      // Then if not, we redirect back to the presentation page
+      userProvider.hasToken().then((token) => {
+        if (token) {
           this.rootPage = TabsPage;
+        }
+      });
+
+      userProvider.getCurrentUser().subscribe(user => {
+        if (user === null) {
+          this.rootPage = PresentationPage;
         }
       });
     });
