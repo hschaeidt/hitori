@@ -8,11 +8,11 @@
 
   <ion-toolbar>
     <ion-title>
-      Sign In
+      {{ "Action.Signin" | translate }}
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <span ion-text color="primary" showWhen="ios">{{ "Action.Cancel" | translate }}</span>
         <ion-icon name="md-close" hideWhen="ios"></ion-icon>
       </button>
     </ion-buttons>
@@ -23,22 +23,22 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label color="primary" stacked>Email Address</ion-label>
+    <ion-label color="primary" stacked>{{ "Form.Field.Email" | translate }}</ion-label>
     <ion-input [(ngModel)]="email" type="email" placeholder="hendrik@hitori.ninja"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label color="primary" stacked>Password</ion-label>
+    <ion-label color="primary" stacked>{{ "Form.Field.Password" | translate }}</ion-label>
     <ion-input [(ngModel)]="password" type="password"></ion-input>
   </ion-item>
 
   <div padding>
-    <button ion-button color="primary" block (click)="handleLogin()">Sign In</button>
+    <button ion-button color="primary" block (click)="handleLogin()">{{ "Action.Signin" | translate }}</button>
   </div>
 
   <div padding align-items-center style="text-align: center;">
     <a href="#" (click)="handleSignupClick()">
-      Or Sign Up here!
+      {{ "Form.Link.OrSignUp" | translate }}
     </a>
   </div>
 </ion-content>

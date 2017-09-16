@@ -1,4 +1,23 @@
 {
+  "Action": {
+    "Cancel": "Abbrechen",
+    "Signin": "Login",
+    "Signup": "Account erstellen"
+  },
+  "Form": {
+    "Field": {
+      "Email": "Email Adresse",
+      "Password": "Passwort",
+      "PasswordRepeat": "Passwort wiederholen"
+    },
+    "Link": {
+      "OrSignIn": "Ich habe bereits einen Account!",
+      "OrSignUp": "Ich habe noch keinen Account!"
+    }
+  },
+  "Signup": {
+    "Title": "Neuer Account"
+  },
   "Presentation": {
     "Slide1": {
       "Title": "Wischbar 1 (de)"

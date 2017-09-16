@@ -11,7 +11,7 @@
 
     <ion-buttons end>
       <button ion-button (click)="handleLogin()">
-        Sign In
+        {{ "Action.Signin" | translate }}
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -30,11 +30,11 @@
     <ion-slide>
       <h2>{{ 'Presentation.Slide3.Title' | translate }}</h2>
       <button ion-button large clear icon-end color="primary" (click)="handleLogin()">
-        Login
+        {{ "Action.Signin" | translate }}
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
       <button ion-button large clear icon-end color="primary" (click)="handleSignup()">
-        Sign Up
+        {{ "Action.Signup" | translate }}
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-slide>

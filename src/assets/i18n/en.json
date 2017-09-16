@@ -1,4 +1,23 @@
 {
+  "Action": {
+    "Cancel": "Cancel",
+    "Signin": "Sign In",
+    "Signup": "Sign Up"
+  },
+  "Form": {
+    "Field": {
+      "Email": "Email Address",
+      "Password": "Password",
+      "PasswordRepeat": "Repeat Password"
+    },
+    "Link": {
+      "OrSignIn": "Or Sign In here!",
+      "OrSignUp": "Or Sign Up here!"
+    }
+  },
+  "Signup": {
+    "Title": "New Account"
+  },
   "Presentation": {
     "Slide1": {
       "Title": "Slide 1 (en)"
