@@ -1,10 +1,11 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ApolloModule } from 'apollo-angular';
 import { IonicStorageModule } from '@ionic/storage';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MyApp } from './app.component';
 
 import { ProfilePage } from '../pages/profile/profile';
@@ -25,6 +26,7 @@ import { ApolloProvider } from '../providers/apollo/apollo';
 import { UserProvider } from '../providers/user/user';
 import { ProfileProvider } from '../providers/profile/profile';
 import { FormsModule } from "@angular/forms";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' }));
 
@@ -46,7 +48,14 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    ApolloModule.forRoot(apolloProvider.getClient.bind(apolloProvider))
+    ApolloModule.forRoot(apolloProvider.getClient.bind(apolloProvider)),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,3 +82,7 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
   ]
 })
 export class AppModule {}
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}

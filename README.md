@@ -1,3 +1,25 @@
+## i18n
+
+### Documentation:
+
+We are using ngx-translate as the official angular i18n is not yet supported in ionic.<br />
+Reference: https://github.com/ionic-team/ionic/issues/8542<br />
+Note: Keep an eye on this and update if necessary<br />
+
+Official references:
+
+* [ngx-translate](http://www.ngx-translate.com/)
+* [Ionic Developer Resources - ngx-translate](https://ionicframework.com/docs/developer-resources/ng2-translate/)
+
+The initialization takes place in the [app.component.ts](src/app/app.component.ts#22).
+
+#### Add translations
+
+To add a translation a new file must be created in the [src/assets](src/assets) folder.<br />
+Then add the language code to the [app.component.ts](src/app/app.component.ts#22) to allow loading of that newly created language.
+
+================================================================================
+
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
 ## How to use this template
