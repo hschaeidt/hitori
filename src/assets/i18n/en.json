@@ -39,7 +39,8 @@
   },
   "Loading": {
     "SigningIn": "Signing in...",
-    "SigningUp": "Signing up..."
+    "SigningUp": "Signing up...",
+    "SigningOut": "Logging out... :("
   },
   "Presentation": {
     "Slide1": {

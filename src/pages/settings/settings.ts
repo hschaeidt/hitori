@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { UserProvider } from "../../providers/user/user";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Generated class for the SettingsPage page.
@@ -15,12 +16,25 @@ import { UserProvider } from "../../providers/user/user";
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  translations = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public userProvider: UserProvider, public alertCtrl: AlertController) {
+              public userProvider: UserProvider, public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController, public translate: TranslateService) {
+    this.translate.get([
+      'Loading.SigningOut'
+    ]).subscribe(response => {
+      this.translations = response;
+    });
   }
 
   logout() {
+    const loader = this.loadingCtrl.create({
+      content: this.translations['Loading.SigningOut']
+    });
+
+    loader.present();
+
     this.userProvider.logoutUser().then(() => location.reload()).catch(
       (errors) => {
         const alert = this.alertCtrl.create({

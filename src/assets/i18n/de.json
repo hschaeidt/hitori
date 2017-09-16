@@ -39,7 +39,8 @@
   },
   "Loading": {
     "SigningIn": "Überprüfe Login...",
-    "SigningUp": "Überprüfe Registrierung..."
+    "SigningUp": "Überprüfe Registrierung...",
+    "SigningOut": "Du wirst ausgeloggt... :("
   },
   "Presentation": {
     "Slide1": {
