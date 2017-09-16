@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import {
-  AlertController, IonicPage, LoadingController, ModalController, NavController, NavParams,
-  ViewController
+  AlertController, IonicPage, LoadingController, ModalController, ViewController
 } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
-import { TabsPage } from "../tabs/tabs";
 import { SignupPage } from "../signup/signup";
+import { TranslateService } from "@ngx-translate/core";
+import "rxjs/add/operator/mergeMap";
 
 /**
  * Generated class for the SigninPage page.
@@ -20,27 +20,36 @@ import { SignupPage } from "../signup/signup";
   templateUrl: 'signin.html',
 })
 export class SigninPage {
+  translations = {};
   email: string = '';
   password: string = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              public alertCtrl: AlertController, public userProvider: UserProvider,
+  constructor(public alertCtrl: AlertController, public userProvider: UserProvider,
               public viewCtrl: ViewController, public loadingCtrl: LoadingController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController, public translate: TranslateService) {
+    this.translate.get([
+      'Alert.InvalidInput.Title',
+      'Alert.InvalidInput.Message',
+      'Alert.Button.OK',
+      'Alert.LoginFailed.Title',
+      'Loading.SigningIn'
+    ]).subscribe(response => {
+      this.translations = response;
+    });
   }
 
   handleLogin() {
     if (this.email === '' || this.password === '') {
       const alert = this.alertCtrl.create({
-        title: 'Invalid Input',
-        subTitle: 'An Email address and Password must be specified!',
-        buttons: ['OK']
+        title: this.translations['Alert.InvalidInput.Title'],
+        subTitle: this.translations['Alert.InvalidInput.Message'],
+        buttons: [this.translations['Alert.Button.OK']]
       });
 
       alert.present();
     } else {
       const loader = this.loadingCtrl.create({
-        content: 'Signing in...'
+        content: this.translations['Loading.SigningIn']
       });
 
       loader.present();
@@ -54,9 +63,9 @@ export class SigninPage {
           loader.dismiss();
 
           const alert = this.alertCtrl.create({
-            title: 'Login failed',
+            title: this.translations['Alert.LoginFailed.Title'],
             subTitle: errors.message,
-            buttons: ['OK']
+            buttons: [this.translations['Alert.Button.OK']]
           });
 
           alert.present();

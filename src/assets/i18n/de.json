@@ -4,6 +4,24 @@
     "Signin": "Login",
     "Signup": "Account erstellen"
   },
+  "Alert": {
+    "InvalidInput": {
+      "Title": "Invalide Eingaben",
+      "Message": "Es muss eine valide Email Adresse und Passwort angegeben werden!"
+    },
+    "LoginFailed": {
+      "Title": "Login failed"
+    },
+    "SignupFailed": {
+      "Title": "Registrierung fehlgeschlagen",
+      "Reason": {
+        "PasswordMismatch": "Die Passwörter stimmen nicht überein!"
+      }
+    },
+    "Button": {
+      "OK": "OK"
+    }
+  },
   "Form": {
     "Field": {
       "Email": "Email Adresse",
@@ -15,8 +33,13 @@
       "OrSignUp": "Ich habe noch keinen Account!"
     }
   },
-  "Signup": {
-    "Title": "Neuer Account"
+  "Inbox": {
+    "Title": "Posteingang",
+    "Empty": "Du hast keine Post :("
+  },
+  "Loading": {
+    "SigningIn": "Überprüfe Login...",
+    "SigningUp": "Überprüfe Registrierung..."
   },
   "Presentation": {
     "Slide1": {
@@ -28,5 +51,8 @@
     "Slide3": {
       "Title": "Wischbar 3 (de)"
     }
+  },
+  "Signup": {
+    "Title": "Neuer Account"
   }
 }

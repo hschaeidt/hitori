@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import {
-  IonicPage, NavController, ViewController, NavParams, AlertController, LoadingController,
+  IonicPage, NavController, ViewController, AlertController, LoadingController,
   ModalController
 } from 'ionic-angular';
 import { UserProvider } from "../../providers/user/user";
 import { TabsPage } from "../tabs/tabs";
 import { SigninPage } from "../signin/signin";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Generated class for the SignupPage page.
@@ -20,22 +21,32 @@ import { SigninPage } from "../signin/signin";
   templateUrl: 'signup.html',
 })
 export class SignupPage {
+  translations = {};
   email: string = '';
   password: string = '';
   passwordRepeat: string = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              public viewCtrl: ViewController, public alertCtrl: AlertController,
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController,
               public userProvider: UserProvider, public loadingCtrl: LoadingController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController, public translate: TranslateService) {
+    this.translate.get([
+      'Alert.InvalidInput.Title',
+      'Alert.InvalidInput.Message',
+      'Alert.Button.OK',
+      'Alert.SignupFailed.Title',
+      'Alert.SignupFailed.Reason.PasswordMismatch',
+      'Loading.SigningUp'
+    ]).subscribe(response => {
+      this.translations = response;
+    });
   }
 
   handleSignup() {
     if (this.email === '' || this.password === '') {
       const alert = this.alertCtrl.create({
-        title: 'Sign up failed',
-        subTitle: 'Did you forget to enter a Email or Password?',
-        buttons: ['OK']
+        title: this.translations['Alert.InvalidInput.Title'],
+        subTitle: this.translations['Alert.InvalidInput.Message'],
+        buttons: [this.translations['Alert.Button.OK']]
       });
 
       alert.present();
@@ -43,9 +54,9 @@ export class SignupPage {
 
     else if (this.password !== this.passwordRepeat) {
       const alert = this.alertCtrl.create({
-        title: 'Sign up failed',
-        subTitle: 'The passwords didn\'t match',
-        buttons: ['OK']
+        title: this.translations['Alert.SignupFailed.Title'],
+        subTitle: this.translations['Alert.SignupFailed.Reason.PasswordMismatch'],
+        buttons: [this.translations['Alert.Button.OK']]
       });
 
       alert.present();
@@ -53,7 +64,7 @@ export class SignupPage {
 
     else {
       const loading = this.loadingCtrl.create({
-        content: 'Signing up...'
+        content: this.translations['Loading.SigningUp'],
       });
 
       loading.present();
@@ -69,9 +80,9 @@ export class SignupPage {
         loading.dismiss();
 
         const alert = this.alertCtrl.create({
-          title: 'Sign up failed',
-          subTitle: errors.message,
-          buttons: ['OK']
+          title: this.translations['Alert.SignupFailed.Title'],
+          subTitle: (errors && errors.message) || '',
+          buttons: [this.translations['Alert.Button.OK']]
         });
 
         alert.present();

@@ -4,6 +4,24 @@
     "Signin": "Sign In",
     "Signup": "Sign Up"
   },
+  "Alert": {
+    "InvalidInput": {
+      "Title": "Invalid Input",
+      "Message": "An Email address and Password must be specified!"
+    },
+    "LoginFailed": {
+      "Title": "Login failed"
+    },
+    "SignupFailed": {
+      "Title": "Sign up failed",
+      "Reason": {
+        "PasswordMismatch": "The passwords didn't match"
+      }
+    },
+    "Button": {
+      "OK": "OK"
+    }
+  },
   "Form": {
     "Field": {
       "Email": "Email Address",
@@ -15,8 +33,13 @@
       "OrSignUp": "Or Sign Up here!"
     }
   },
-  "Signup": {
-    "Title": "New Account"
+  "Inbox": {
+    "Title": "Inbox",
+    "Empty": "Your Inbox is empty :("
+  },
+  "Loading": {
+    "SigningIn": "Signing in...",
+    "SigningUp": "Signing up..."
   },
   "Presentation": {
     "Slide1": {
@@ -28,5 +51,8 @@
     "Slide3": {
       "Title": "Slide 3 (en)"
     }
+  },
+  "Signup": {
+    "Title": "New Account"
   }
 }
