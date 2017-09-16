@@ -1,3 +1,17 @@
+## Typescript
+
+### Documentation
+
+Special configuration in [tsconfig.json](tsconfig.json):
+
+```json
+{
+  "lib": [
+    "esnext.asynciterable" //Required by @types/graphql
+  ]
+}
+```
+
 ## GraphQL
 
 ### Typescript typings
