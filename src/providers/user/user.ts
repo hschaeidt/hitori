@@ -36,13 +36,7 @@ export class UserProvider {
     );
   }
 
-  public async createUser(email: string, password: string): Promise<CreateUserMutation>  {
-    if (await this.getCurrentUser() !== null) {
-      return new Promise<CreateUserMutation>((resolve, reject) => {
-        reject();
-      });
-    }
-
+  public createUser(email: string, password: string): Promise<CreateUserMutation>  {
     const createUser = gql`
       mutation CreateUser($email: String!, $password: String!){
         createUser(authProvider: {email: {email: $email, password: $password}}) {
