@@ -1,6 +1,25 @@
+## GraphQL
+
+### Typescript typings
+
+#### Documentation
+
+We use the [apollo-codegen](https://github.com/apollographql/apollo-codegen) library to sync and update the Typescript types based on the GraphQL schema.
+
+To update the types:
+```
+# first update the ./schema.json file in the repo based on the GraphQL endpoint
+npm run graphql:updateSchema
+
+# next generate the types located at ./src/app/schema.json
+npm run graphql:generateTypes
+```
+
+Regenerating the types shall become a separate commit.
+
 ## i18n
 
-### Documentation:
+### Documentation
 
 We are using ngx-translate as the official angular i18n is not yet supported in ionic.<br />
 Reference: https://github.com/ionic-team/ionic/issues/8542<br />
