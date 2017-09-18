@@ -4,7 +4,7 @@ import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { UserProvider } from "../user/user";
 import {
-  CreateProfileForUserMutation, CreateProfileForUserMutationVariables, CreateUserMutationVariables,
+  CreateProfileForUserMutation, CreateProfileForUserMutationVariables,
   GetUserWithProfileQuery, UpdateProfileForUserMutation, UpdateProfileForUserMutationVariables
 } from "../../app/schema";
 

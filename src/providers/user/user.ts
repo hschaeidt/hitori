@@ -6,9 +6,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {
   CreateUserMutation, CreateUserMutationVariables, GetCurrentUserQuery, SigninUserMutation,
-  SigninUserMutationVariables
-} from "../../app/schema";
-import "rxjs/add/operator/mergeMap";
+  SigninUserMutationVariables,
+} from '../../app/schema';
+import { ApolloExecutionResult, ApolloQueryResult } from 'apollo-client';
 
 /*
   Generated class for the UserProvider provider.
@@ -32,11 +32,11 @@ export class UserProvider {
         }
       `,
     }).map(
-      ({data}) => data.user
+      ({data}: ApolloQueryResult<GetCurrentUserQuery>) => data.user,
     );
   }
 
-  public createUser(email: string, password: string): Promise<CreateUserMutation>  {
+  public createUser(email: string, password: string): Promise<CreateUserMutation> {
     const createUser = gql`
       mutation CreateUser($email: String!, $password: String!){
         createUser(authProvider: {email: {email: $email, password: $password}}) {
@@ -47,16 +47,16 @@ export class UserProvider {
 
     const variables: CreateUserMutationVariables = {
       password,
-      email
+      email,
     };
 
     return this.apollo.mutate<CreateUserMutation>({
       mutation: createUser,
-      variables
+      variables,
     }).toPromise<CreateUserMutation>();
   }
 
-  public signinUser(email: string, password: string): Promise<{}> {
+  public signinUser(email: string, password: string): Promise<string> {
     const signinUser = gql`
       mutation SigninUser($email: String!, $password: String!){
         signinUser(email: {email: $email, password: $password}) {
@@ -67,16 +67,16 @@ export class UserProvider {
 
     const variables: SigninUserMutationVariables = {
       email,
-      password
+      password,
     };
 
     return new Promise((resolve, reject) => {
       this.apollo.mutate<SigninUserMutation>({
         mutation: signinUser,
-        variables
-      }).subscribe(({ data }) => {
+        variables,
+      }).subscribe(({data}: ApolloExecutionResult<SigninUserMutation>) => {
         this.storage.set('id_token', data.signinUser.token).then(() => {
-          resolve();
+          resolve(data.signinUser.token);
         });
       }, (errors) => {
         reject(errors);
@@ -92,7 +92,7 @@ export class UserProvider {
         }).catch((errors) => reject(errors));
       }).catch((errors) => {
         reject(errors);
-      })
+      });
     });
   }
 

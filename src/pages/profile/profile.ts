@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertController, LoadingController, NavController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { Profile, ProfileProvider } from "../../providers/profile/profile";
-import * as _ from 'lodash';
 
 @Component({
   selector: 'page-about',
@@ -12,7 +11,7 @@ export class ProfilePage {
     publicName: ''
   };
 
-  constructor(public navCtrl: NavController, public profileProvider: ProfileProvider,
+  constructor(public profileProvider: ProfileProvider,
               public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     const loading = this.loadingCtrl.create({
       content: 'Loading profile...'

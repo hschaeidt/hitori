@@ -12,9 +12,9 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PeoplePage } from '../pages/people/people';
 import { InboxPage } from '../pages/inbox/inbox';
 import { SettingsPage } from '../pages/settings/settings';
-import { SigninPage } from "../pages/signin/signin";
-import { SignupPage } from "../pages/signup/signup";
-import { PresentationPage } from "../pages/presentation/presentation";
+import { SigninPage } from '../pages/signin/signin';
+import { SignupPage } from '../pages/signup/signup';
+import { PresentationPage } from '../pages/presentation/presentation';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,10 +25,10 @@ import { Auth0Provider } from '../providers/auth0/auth0';
 import { ApolloProvider } from '../providers/apollo/apollo';
 import { UserProvider } from '../providers/user/user';
 import { ProfileProvider } from '../providers/profile/profile';
-import { FormsModule } from "@angular/forms";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { FormsModule } from '@angular/forms';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' }));
+const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     SettingsPage,
     SigninPage,
     SignupPage,
-    PresentationPage
+    PresentationPage,
   ],
   imports: [
     BrowserModule,
@@ -53,9 +53,9 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [Http]
-      }
-    })
+        deps: [Http],
+      },
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,7 +67,7 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     SettingsPage,
     SigninPage,
     SignupPage,
-    PresentationPage
+    PresentationPage,
   ],
   providers: [
     StatusBar,
@@ -78,10 +78,11 @@ const apolloProvider = new ApolloProvider(new Storage({ name: '_ionicstorage' })
     Auth0Provider,
     ApolloProvider,
     UserProvider,
-    ProfileProvider
-  ]
+    ProfileProvider,
+  ],
 })
-export class AppModule {}
+export class AppModule {
+}
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

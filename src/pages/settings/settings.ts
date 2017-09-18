@@ -35,7 +35,9 @@ export class SettingsPage {
 
     loader.present();
 
-    this.userProvider.logoutUser().then(() => location.reload()).catch(
+    this.userProvider.logoutUser()
+      .then(() => location.reload(true))
+      .catch(
       (errors) => {
         const alert = this.alertCtrl.create({
           title: 'Login failed',

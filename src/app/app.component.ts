@@ -5,26 +5,21 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { PresentationPage } from '../pages/presentation/presentation';
 import { Auth0Provider } from '../providers/auth0/auth0';
-import { UserProvider } from "../providers/user/user";
-import { TabsPage } from "../pages/tabs/tabs";
-import "rxjs/add/operator/filter";
-import { TranslateService } from "@ngx-translate/core";
+import { UserProvider } from '../providers/user/user';
+import { TabsPage } from '../pages/tabs/tabs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
 export class MyApp {
-  rootPage:any = PresentationPage;
+  rootPage: any = PresentationPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-              public authProvider: Auth0Provider, translate: TranslateService,
+              public authProvider: Auth0Provider, private translate: TranslateService,
               public userProvider: UserProvider) {
-    //setup i18n
-    translate.addLangs(["en", "fr", "de"]);
-    translate.setDefaultLang('en');
-
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr|de/) ? browserLang : 'en');
+    // Init translations
+    this.initTranslate();
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -32,19 +27,33 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      // In the login flow we first consider optimistically the token as valid,
-      // Then if not, we redirect back to the presentation page
-      userProvider.hasToken().then((token) => {
-        if (token) {
-          this.rootPage = TabsPage;
-        }
-      });
+      // Verify user logged in status
+      this.verifyUserLoggedInStatus();
+    });
+  }
 
-      userProvider.getCurrentUser().subscribe(user => {
-        if (user === null) {
-          this.rootPage = PresentationPage;
-        }
-      });
+  private initTranslate() {
+    //setup i18n
+    this.translate.addLangs(['en', 'fr', 'de']);
+    this.translate.setDefaultLang('en');
+
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang.match(/en|fr|de/) ? browserLang : 'en');
+  }
+
+  private verifyUserLoggedInStatus() {
+    // In the login flow we first consider optimistically the token as valid,
+    // Then if not, we redirect back to the presentation page
+    this.userProvider.hasToken().then((token) => {
+      if (token) {
+        this.rootPage = TabsPage;
+      }
+    });
+
+    this.userProvider.getCurrentUser().subscribe(user => {
+      if (user === null) {
+        this.rootPage = PresentationPage;
+      }
     });
   }
 
