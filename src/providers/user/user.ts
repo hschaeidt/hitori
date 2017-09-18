@@ -77,7 +77,7 @@ export class UserProvider {
       }).subscribe(({data}: ApolloExecutionResult<SigninUserMutation>) => {
         this.storage.set('id_token', data.signinUser.token).then(() => {
           resolve(data.signinUser.token);
-        });
+        }).catch(errors => reject(errors));
       }, (errors) => {
         reject(errors);
       });
