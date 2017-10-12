@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ApolloModule } from 'apollo-angular';
@@ -45,7 +45,7 @@ const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     ApolloModule.forRoot(apolloProvider.getClient.bind(apolloProvider)),
@@ -53,7 +53,7 @@ const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [Http],
+        deps: [HttpClient],
       },
     }),
   ],
@@ -84,6 +84,6 @@ const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
 export class AppModule {
 }
 
-export function createTranslateLoader(http: Http) {
+export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { AUTH_CONFIG } from "./auth0.config";
 import 'rxjs/add/operator/map';
@@ -25,7 +25,7 @@ export class Auth0Provider {
     scope: 'openid email profile'
   });
 
-  constructor(public http: Http, public storage: Storage, public userProvider: UserProvider) {
+  constructor(public http: HttpClient, public storage: Storage, public userProvider: UserProvider) {
   }
 
 
