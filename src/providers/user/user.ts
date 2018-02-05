@@ -8,7 +8,8 @@ import {
   CreateUserMutation, CreateUserMutationVariables, GetCurrentUserQuery, SigninUserMutation,
   SigninUserMutationVariables,
 } from '../../app/schema';
-import { ApolloExecutionResult, ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from 'apollo-client';
+import { FetchResult } from "apollo-link";
 
 /*
   Generated class for the UserProvider provider.
@@ -31,7 +32,7 @@ export class UserProvider {
           }
         }
       `,
-    }).map(
+    }).valueChanges.map(
       ({data}: ApolloQueryResult<GetCurrentUserQuery>) => data.user,
     );
   }
@@ -74,7 +75,7 @@ export class UserProvider {
       this.apollo.mutate<SigninUserMutation>({
         mutation: signinUser,
         variables,
-      }).subscribe(({data}: ApolloExecutionResult<SigninUserMutation>) => {
+      }).subscribe(({data}: FetchResult<SigninUserMutation>) => {
         this.storage.set('id_token', data.signinUser.token).then(() => {
           resolve(data.signinUser.token);
         }).catch(errors => reject(errors));

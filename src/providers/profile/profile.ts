@@ -32,7 +32,7 @@ export class ProfileProvider {
           }
         }
       `
-    });
+    }).valueChanges;
   }
 
   public async createCurrentUserProfile(

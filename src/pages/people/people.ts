@@ -14,6 +14,6 @@ export class PeoplePage {
     public peopleService: PeopleProvider
   ) {
     peopleService.getRandomPeople(25)
-      .subscribe(data => this.people = data.results);
+      .subscribe((data: any) => this.people = data.results);
   }
 }
