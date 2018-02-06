@@ -9,7 +9,7 @@ import {
   SigninUserMutationVariables,
 } from '../../app/schema';
 import { ApolloQueryResult } from 'apollo-client';
-import { FetchResult } from "apollo-link";
+import { FetchResult } from 'apollo-link';
 
 /*
   Generated class for the UserProvider provider.
@@ -88,9 +88,7 @@ export class UserProvider {
   public logoutUser(): Promise<{}> {
     return new Promise((resolve, reject) => {
       this.storage.remove('id_token').then(() => {
-        this.apollo.getClient().resetStore().then(() => {
-          resolve();
-        }).catch((errors) => reject(errors));
+        return this.apollo.getClient().resetStore();
       }).catch((errors) => {
         reject(errors);
       });

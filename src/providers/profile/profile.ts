@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
-import { UserProvider } from "../user/user";
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { UserProvider } from '../user/user';
 import {
   CreateProfileForUserMutation, CreateProfileForUserMutationVariables,
   GetUserWithProfileQuery, UpdateProfileForUserMutation, UpdateProfileForUserMutationVariables
-} from "../../app/schema";
+} from '../../app/schema';
 
 /*
   Generated class for the ProfileProvider provider.

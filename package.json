@@ -8,6 +8,7 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
+    "lint:fix": "tslint --project tsconfig.json --fix src/**/*.ts",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "graphql:updateSchema": "apollo-codegen introspect-schema https://api.graph.cool/simple/v1/cj7d0wq410pal0108z2ct0b4j --output schema.json",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "^3.0.0",
     "apollo-codegen": "^0.18.3",
+    "tslint-ionic-rules": "0.0.13",
     "typescript": "2.3.4"
   },
   "description": "An Ionic project"

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {PeopleProvider} from "../../providers/people/people";
+import { PeopleProvider } from '../../providers/people/people';
 
 @Component({
   selector: 'page-contact',

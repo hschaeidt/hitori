@@ -33,7 +33,7 @@ export class MyApp {
   }
 
   private initTranslate() {
-    //setup i18n
+    // Setup i18n
     this.translate.addLangs(['en', 'fr', 'de']);
     this.translate.setDefaultLang('en');
 

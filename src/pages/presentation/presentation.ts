@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
-import { SigninPage } from "../signin/signin";
-import { SignupPage } from "../signup/signup";
+import { SigninPage } from '../signin/signin';
+import { SignupPage } from '../signup/signup';
 
 /**
  * Generated class for the PresentationPage page.

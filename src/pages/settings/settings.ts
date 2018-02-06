@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
-import { UserProvider } from "../../providers/user/user";
-import { TranslateService } from "@ngx-translate/core";
+import { UserProvider } from '../../providers/user/user';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the SettingsPage page.

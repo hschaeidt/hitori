@@ -1,9 +1,12 @@
 {
+  "extends": "tslint-ionic-rules",
   "rules": {
     "no-duplicate-variable": true,
     "no-unused-variable": [
       true
-    ]
+    ],
+    "no-import-side-effect": [true, { "ignore-pattern": "/rxjs.*/" }],
+    "whitespace": [true, "check-module"]
   },
   "rulesDirectory": [
     "node_modules/tslint-eslint-rules/dist/rules"

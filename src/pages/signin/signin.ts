@@ -20,8 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SigninPage {
   translations = {};
-  email: string = '';
-  password: string = '';
+  email = '';
+  password = '';
 
   constructor(public alertCtrl: AlertController, public userProvider: UserProvider,
               public viewCtrl: ViewController, public loadingCtrl: LoadingController,

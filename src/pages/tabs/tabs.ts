@@ -14,8 +14,4 @@ export class TabsPage {
   peopleTabRoot = PeoplePage;
   profileTabRoot = ProfilePage;
   settingsTabRoot = SettingsPage;
-
-  constructor() {
-
-  }
 }

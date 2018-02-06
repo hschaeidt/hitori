@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {
-  IonicPage, NavController, ViewController, AlertController, LoadingController,
-  ModalController
+  AlertController, IonicPage, LoadingController, ModalController, NavController,
+  ViewController
 } from 'ionic-angular';
-import { UserProvider } from "../../providers/user/user";
-import { TabsPage } from "../tabs/tabs";
-import { SigninPage } from "../signin/signin";
-import { TranslateService } from "@ngx-translate/core";
+import { UserProvider } from '../../providers/user/user';
+import { TabsPage } from '../tabs/tabs';
+import { SigninPage } from '../signin/signin';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the SignupPage page.
@@ -22,9 +22,9 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class SignupPage {
   translations = {};
-  email: string = '';
-  password: string = '';
-  passwordRepeat: string = '';
+  email = '';
+  password = '';
+  passwordRepeat = '';
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController,
               public userProvider: UserProvider, public loadingCtrl: LoadingController,
@@ -50,9 +50,7 @@ export class SignupPage {
       });
 
       alert.present();
-    }
-
-    else if (this.password !== this.passwordRepeat) {
+    } else if (this.password !== this.passwordRepeat) {
       const alert = this.alertCtrl.create({
         title: this.translations['Alert.SignupFailed.Title'],
         subTitle: this.translations['Alert.SignupFailed.Reason.PasswordMismatch'],
@@ -60,9 +58,7 @@ export class SignupPage {
       });
 
       alert.present();
-    }
-
-    else {
+    } else {
       const loading = this.loadingCtrl.create({
         content: this.translations['Loading.SigningUp'],
       });
