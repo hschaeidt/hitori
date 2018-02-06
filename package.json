@@ -50,7 +50,7 @@
     "@ionic/app-scripts": "^3.0.0",
     "apollo-codegen": "^0.18.3",
     "tslint-ionic-rules": "0.0.13",
-    "typescript": "2.3.4"
+    "typescript": "^2.7.1"
   },
   "description": "An Ionic project"
 }
