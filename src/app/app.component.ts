@@ -51,7 +51,6 @@ export class MyApp {
     });
 
     this.userProvider.getCurrentUser().subscribe(user => {
-      console.log('user login subscriber trigger', user);
       if (user === null) {
         this.rootPage = PresentationPage;
       }

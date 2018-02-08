@@ -35,7 +35,6 @@ export class AuthProvider {
       `,
     }).valueChanges.map(
       ({data}: ApolloQueryResult<GetCurrentUserQuery>) => {
-        console.log('value changed', data);
         return data.user;
       }
     );
@@ -89,11 +88,12 @@ export class AuthProvider {
     });
   }
 
-  public logoutUser(): Promise<{}> {
+  public logoutUser() {
     return new Promise((resolve, reject) => {
-      this.storage.remove(GC_AUTH_TOKEN).then(() => {
-        return this.apollo.getClient().resetStore();
-      }).catch((errors) => {
+      this.storage.remove(GC_AUTH_TOKEN)
+        .then(() => this.apollo.getClient().resetStore())
+        .then(() => resolve())
+        .catch((errors) => {
         reject(errors);
       });
     });

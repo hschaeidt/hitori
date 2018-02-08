@@ -36,11 +36,13 @@ export class SettingsPage {
     loader.present();
 
     this.authProvider.logoutUser()
-      .then(() => location.reload(true))
+      .then(() => {
+        location.reload(true);
+      })
       .catch(
       (errors) => {
         const alert = this.alertCtrl.create({
-          title: 'Login failed',
+          title: 'Logout failed',
           subTitle: errors.message,
           buttons: ['OK']
         });
