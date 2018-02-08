@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { PresentationPage } from '../pages/presentation/presentation';
 import { Auth0Provider } from '../providers/auth0/auth0';
-import { UserProvider } from '../providers/user/user';
+import { AuthProvider } from '../providers/auth/auth';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -17,7 +17,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               public authProvider: Auth0Provider, private translate: TranslateService,
-              public userProvider: UserProvider) {
+              public userProvider: AuthProvider) {
     // Init translations
     this.initTranslate();
 
@@ -51,6 +51,7 @@ export class MyApp {
     });
 
     this.userProvider.getCurrentUser().subscribe(user => {
+      console.log('user login subscriber trigger', user);
       if (user === null) {
         this.rootPage = PresentationPage;
       }

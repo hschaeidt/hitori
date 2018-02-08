@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
   AlertController, IonicPage, LoadingController, ModalController, ViewController,
 } from 'ionic-angular';
-import { UserProvider } from '../../providers/user/user';
+import { AuthProvider } from '../../providers/auth/auth';
 import { SignupPage } from '../signup/signup';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,7 +23,7 @@ export class SigninPage {
   email = '';
   password = '';
 
-  constructor(public alertCtrl: AlertController, public userProvider: UserProvider,
+  constructor(public alertCtrl: AlertController, public authProvider: AuthProvider,
               public viewCtrl: ViewController, public loadingCtrl: LoadingController,
               public modalCtrl: ModalController, public translate: TranslateService) {
   }
@@ -50,7 +50,7 @@ export class SigninPage {
 
       const loaderResponse = loader.present();
 
-      this.userProvider.signinUser(this.email, this.password).then(
+      this.authProvider.signinUser(this.email, this.password).then(
         () => {
           location.reload(true);
         },

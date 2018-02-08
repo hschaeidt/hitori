@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { UserProvider } from '../user/user';
+import { AuthProvider } from '../auth/auth';
 import {
   CreateProfileForUserMutation, CreateProfileForUserMutationVariables,
   GetUserWithProfileQuery, UpdateProfileForUserMutation, UpdateProfileForUserMutationVariables
@@ -16,7 +16,7 @@ import {
 */
 @Injectable()
 export class ProfileProvider {
-  constructor(public apollo: Apollo, public userProvider: UserProvider) {
+  constructor(public apollo: Apollo, public authProvider: AuthProvider) {
   }
 
   public getCurrentUserProfile() {
@@ -38,7 +38,7 @@ export class ProfileProvider {
   public async createCurrentUserProfile(
     publicName: string
   ) {
-    const user = await this.userProvider.getCurrentUser().toPromise();
+    const user = await this.authProvider.getCurrentUser().toPromise();
 
     const variables: CreateProfileForUserMutationVariables = {
       userId: user.id,

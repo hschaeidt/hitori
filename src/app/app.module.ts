@@ -5,7 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MyApp } from './app.component';
-import { GraphQLModule } from './apollo.config';
+import { GraphQLModule } from './apollo.module';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { PeoplePage } from '../pages/people/people';
@@ -21,7 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PeopleProvider } from '../providers/people/people';
 import { ConversationsProvider } from '../providers/conversations/conversations';
 import { Auth0Provider } from '../providers/auth0/auth0';
-import { UserProvider } from '../providers/user/user';
+import { AuthProvider } from '../providers/auth/auth';
 import { ProfileProvider } from '../providers/profile/profile';
 import { FormsModule } from '@angular/forms';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -72,7 +72,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     PeopleProvider,
     ConversationsProvider,
     Auth0Provider,
-    UserProvider,
+    AuthProvider,
     ProfileProvider,
   ],
 })

@@ -10,15 +10,16 @@ import {
 } from '../../app/schema';
 import { ApolloQueryResult } from 'apollo-client';
 import { FetchResult } from 'apollo-link';
+import { GC_AUTH_TOKEN } from '../../constants';
 
 /*
-  Generated class for the UserProvider provider.
+  Generated class for the AuthProvider provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular DI.
 */
 @Injectable()
-export class UserProvider {
+export class AuthProvider {
 
   constructor(public apollo: Apollo, public storage: Storage) {
   }
@@ -33,7 +34,10 @@ export class UserProvider {
         }
       `,
     }).valueChanges.map(
-      ({data}: ApolloQueryResult<GetCurrentUserQuery>) => data.user,
+      ({data}: ApolloQueryResult<GetCurrentUserQuery>) => {
+        console.log('value changed', data);
+        return data.user;
+      }
     );
   }
 
@@ -76,7 +80,7 @@ export class UserProvider {
         mutation: signinUser,
         variables,
       }).subscribe(({data}: FetchResult<SigninUserMutation>) => {
-        this.storage.set('id_token', data.signinUser.token).then(() => {
+        this.storage.set(GC_AUTH_TOKEN, data.signinUser.token).then(() => {
           resolve(data.signinUser.token);
         }).catch(errors => reject(errors));
       }, (errors) => {
@@ -87,7 +91,7 @@ export class UserProvider {
 
   public logoutUser(): Promise<{}> {
     return new Promise((resolve, reject) => {
-      this.storage.remove('id_token').then(() => {
+      this.storage.remove(GC_AUTH_TOKEN).then(() => {
         return this.apollo.getClient().resetStore();
       }).catch((errors) => {
         reject(errors);
@@ -96,6 +100,6 @@ export class UserProvider {
   }
 
   public hasToken() {
-    return this.storage.get('id_token');
+    return this.storage.get(GC_AUTH_TOKEN);
   }
 }

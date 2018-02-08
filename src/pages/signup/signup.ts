@@ -3,7 +3,7 @@ import {
   AlertController, IonicPage, LoadingController, ModalController, NavController,
   ViewController
 } from 'ionic-angular';
-import { UserProvider } from '../../providers/user/user';
+import { AuthProvider } from '../../providers/auth/auth';
 import { TabsPage } from '../tabs/tabs';
 import { SigninPage } from '../signin/signin';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +27,7 @@ export class SignupPage {
   passwordRepeat = '';
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController,
-              public userProvider: UserProvider, public loadingCtrl: LoadingController,
+              public authProvider: AuthProvider, public loadingCtrl: LoadingController,
               public modalCtrl: ModalController, public translate: TranslateService) {
     this.translate.get([
       'Alert.InvalidInput.Title',
@@ -65,8 +65,8 @@ export class SignupPage {
 
       loading.present();
 
-      this.userProvider.createUser(this.email, this.password).then(
-        () => this.userProvider.signinUser(this.email, this.password)
+      this.authProvider.createUser(this.email, this.password).then(
+        () => this.authProvider.signinUser(this.email, this.password)
       ).then(
         () => {
           loading.dismiss();

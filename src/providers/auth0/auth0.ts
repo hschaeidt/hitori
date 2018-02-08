@@ -5,7 +5,7 @@ import { AUTH_CONFIG } from './auth0.config';
 import 'rxjs/add/operator/map';
 import { Auth0UserProfile, WebAuth } from 'auth0-js';
 
-import { UserProvider } from '../user/user';
+import { AuthProvider } from '../auth/auth';
 
 /*
   Generated class for the Auth0Provider provider.
@@ -25,7 +25,7 @@ export class Auth0Provider {
     scope: 'openid email profile'
   });
 
-  constructor(public http: HttpClient, public storage: Storage, public userProvider: UserProvider) {
+  constructor(public http: HttpClient, public storage: Storage, public authProvider: AuthProvider) {
   }
 
 
@@ -53,7 +53,7 @@ export class Auth0Provider {
   async syncToUser(idToken: string) {
     // const userProfile = await this.getUserProfile();
 
-    // this.userProvider.createUser(userProfile.nickname, userProfile.name, idToken);
+    // this.authProvider.createUser(userProfile.nickname, userProfile.name, idToken);
   }
 
   public async getAccessToken(): Promise<string> {
