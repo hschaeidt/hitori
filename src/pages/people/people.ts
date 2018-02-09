@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {PeopleProvider} from "../../providers/people/people";
+import { PeopleProvider } from '../../providers/people/people';
 
 @Component({
   selector: 'page-contact',
@@ -14,6 +14,6 @@ export class PeoplePage {
     public peopleService: PeopleProvider
   ) {
     peopleService.getRandomPeople(25)
-      .subscribe(data => this.people = data.results);
+      .subscribe((data: any) => this.people = data.results);
   }
 }

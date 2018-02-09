@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, LoadingController } from 'ionic-angular';
-import { Profile, ProfileProvider } from "../../providers/profile/profile";
+import { Profile, ProfileProvider } from '../../providers/profile/profile';
 
 @Component({
   selector: 'page-about',

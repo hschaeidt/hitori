@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
-import { UserProvider } from "../../providers/user/user";
-import { TranslateService } from "@ngx-translate/core";
+import { AuthProvider } from '../../providers/auth/auth';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the SettingsPage page.
@@ -19,7 +19,7 @@ export class SettingsPage {
   translations = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public userProvider: UserProvider, public alertCtrl: AlertController,
+              public authProvider: AuthProvider, public alertCtrl: AlertController,
               public loadingCtrl: LoadingController, public translate: TranslateService) {
     this.translate.get([
       'Loading.SigningOut'
@@ -35,12 +35,14 @@ export class SettingsPage {
 
     loader.present();
 
-    this.userProvider.logoutUser()
-      .then(() => location.reload(true))
+    this.authProvider.logoutUser()
+      .then(() => {
+        location.reload(true);
+      })
       .catch(
       (errors) => {
         const alert = this.alertCtrl.create({
-          title: 'Login failed',
+          title: 'Logout failed',
           subTitle: errors.message,
           buttons: ['OK']
         });

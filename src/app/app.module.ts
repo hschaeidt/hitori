@@ -1,12 +1,11 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { ApolloModule } from 'apollo-angular';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MyApp } from './app.component';
+import { GraphQLModule } from './apollo.module';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { PeoplePage } from '../pages/people/people';
@@ -22,13 +21,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PeopleProvider } from '../providers/people/people';
 import { ConversationsProvider } from '../providers/conversations/conversations';
 import { Auth0Provider } from '../providers/auth0/auth0';
-import { ApolloProvider } from '../providers/apollo/apollo';
-import { UserProvider } from '../providers/user/user';
+import { AuthProvider } from '../providers/auth/auth';
 import { ProfileProvider } from '../providers/profile/profile';
 import { FormsModule } from '@angular/forms';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
 
 @NgModule({
   declarations: [
@@ -45,10 +41,10 @@ const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
   imports: [
     BrowserModule,
     FormsModule,
+    GraphQLModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    ApolloModule.forRoot(apolloProvider.getClient.bind(apolloProvider)),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -76,8 +72,7 @@ const apolloProvider = new ApolloProvider(new Storage({name: '_ionicstorage'}));
     PeopleProvider,
     ConversationsProvider,
     Auth0Provider,
-    ApolloProvider,
-    UserProvider,
+    AuthProvider,
     ProfileProvider,
   ],
 })

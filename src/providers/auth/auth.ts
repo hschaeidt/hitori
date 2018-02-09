@@ -8,16 +8,18 @@ import {
   CreateUserMutation, CreateUserMutationVariables, GetCurrentUserQuery, SigninUserMutation,
   SigninUserMutationVariables,
 } from '../../app/schema';
-import { ApolloExecutionResult, ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from 'apollo-client';
+import { FetchResult } from 'apollo-link';
+import { GC_AUTH_TOKEN } from '../../constants';
 
 /*
-  Generated class for the UserProvider provider.
+  Generated class for the AuthProvider provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular DI.
 */
 @Injectable()
-export class UserProvider {
+export class AuthProvider {
 
   constructor(public apollo: Apollo, public storage: Storage) {
   }
@@ -31,8 +33,10 @@ export class UserProvider {
           }
         }
       `,
-    }).map(
-      ({data}: ApolloQueryResult<GetCurrentUserQuery>) => data.user,
+    }).valueChanges.map(
+      ({data}: ApolloQueryResult<GetCurrentUserQuery>) => {
+        return data.user;
+      }
     );
   }
 
@@ -74,8 +78,8 @@ export class UserProvider {
       this.apollo.mutate<SigninUserMutation>({
         mutation: signinUser,
         variables,
-      }).subscribe(({data}: ApolloExecutionResult<SigninUserMutation>) => {
-        this.storage.set('id_token', data.signinUser.token).then(() => {
+      }).subscribe(({data}: FetchResult<SigninUserMutation>) => {
+        this.storage.set(GC_AUTH_TOKEN, data.signinUser.token).then(() => {
           resolve(data.signinUser.token);
         }).catch(errors => reject(errors));
       }, (errors) => {
@@ -84,19 +88,18 @@ export class UserProvider {
     });
   }
 
-  public logoutUser(): Promise<{}> {
+  public logoutUser() {
     return new Promise((resolve, reject) => {
-      this.storage.remove('id_token').then(() => {
-        this.apollo.getClient().resetStore().then(() => {
-          resolve();
-        }).catch((errors) => reject(errors));
-      }).catch((errors) => {
+      this.storage.remove(GC_AUTH_TOKEN)
+        .then(() => this.apollo.getClient().resetStore())
+        .then(() => resolve())
+        .catch((errors) => {
         reject(errors);
       });
     });
   }
 
   public hasToken() {
-    return this.storage.get('id_token');
+    return this.storage.get(GC_AUTH_TOKEN);
   }
 }
